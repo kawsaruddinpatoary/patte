@@ -79,18 +79,13 @@
   </div>
   <div class="container">
     <div class="bottom-bar">
-      <a href="index.html"><img src="{% static 'assets/img/logo.png' %}" alt="logo"></a>
+      <a href="{% url 'home' %}"><img src="{% static 'assets/img/logo.png' %}" alt="logo"></a>
         <nav class="navbar">
         <ul class="navbar-links">
-                    <li class="navbar-dropdown menu-item-children">
-                      <a href="javascript:void(0)"><i>
+                    <li class="navbar-dropdown ">
+                      <a href="{% url 'home' %}"><i>
                         <img alt="home" src="{% static 'assets/img/home.png' %}">
                       </i>home</a>
-                      <div class="dropdown">
-                        <a href="{% url 'home' %}">home 1</a>
-                        <a href="index-2.html">home 2</a>
-                        <a href="index-3.html">home 3</a>
-                      </div>
                     </li>
                     <li class="navbar-dropdown">
                       <a href="{% url 'about' %}">About</a>
@@ -162,20 +157,13 @@
   </div>
   <div class="mobile-nav hmburger-menu" id="mobile-nav" style="display:block;">
       <div class="res-log">
-        <a href="index.html">
+        <a href="{% url 'home' %}">
           <img src="{% static 'assets/img/logo-w.png' %}" alt="Responsive Logo">
         </a>
       </div>
         <ul>
 
-          <li class="menu-item-has-children"><a href="JavaScript:void(0)">Home</a>
-            <ul class="sub-menu">
-
-              <li><a href="{% url 'home' %}">home 1</a></li>
-              <li><a href="index-2.html">home 2</a></li>
-              <li><a href="index-3.html">home 3</a></li>
-            </ul>
-          </li>
+          <li><a href="{% url 'home' %}">home</a></li>
           <li><a href="{% url 'about' %}">about</a></li>
 
           
