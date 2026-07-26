@@ -46,5 +46,8 @@ def cart(request):
 def checkout(request):
     return render(request, 'ordering/checkout.html')
 
+def blogs(request):
+    return render(request, 'blog/blogs.html')
+
 
 
