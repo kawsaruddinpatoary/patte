@@ -1,0 +1,14 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block title %} Team Details {% endblock %}
+
+{% block content %}
+
+
+{% include 'banner.html' with heading="Team Details" %}
+{% include 'team/member.html' %}
+{% include 'team/info.html' %}
+
+
+{% endblock %}
