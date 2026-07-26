@@ -49,5 +49,8 @@ def checkout(request):
 def blogs(request):
     return render(request, 'blog/blogs.html')
 
+def blogDetails(request):
+    return render(request, 'blog/blog_details.html')
+
 
 
