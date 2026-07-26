@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block title %} Pricing Packages {% endblock %} 
+
+
+{% block content %} 
+
+{% include 'banner.html' with heading="Pricing Packages" %}
+{% include 'pricing/packages.html' %}
+{% include 'follow.html' %}
+
+
+{% endblock %} 

@@ -18,3 +18,6 @@ def workingProcess(request):
 
 def history(request):
     return render(request, 'history/history.html')
+
+def pricing(request):
+    return render(request, 'pricing/pricing.html')
