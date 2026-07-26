@@ -37,5 +37,8 @@ def serviceDetails(request):
 def products(request):
     return render(request, 'products/products.html')
 
+def productDetails(request):
+    return render(request, 'products/product_details.html')
+
 
 

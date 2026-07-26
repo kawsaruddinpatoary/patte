@@ -1,0 +1,95 @@
+{% load static %} 
+
+<section class="gap no-bottom">
+  <div class="container">
+    <div class="row product-info-section">
+      <div class="col-lg-7 p-0">
+        <div class="pd-gallery">
+          <ul class="pd-imgs">
+                <li class="li-pd-imgs nav-active">
+                    <a href="JavaScript:void(0)">
+                      <img alt="toys" src="{% static 'assets/img/food-shop-1.png' %}">
+                    </a>
+
+                </li>
+                <li class="li-pd-imgs">
+                  <a href="JavaScript:void(0)">
+                    <img alt="toys" src="{% static 'assets/img/food-shop-2.png' %}">
+                  </a>
+                </li>
+                <li class="li-pd-imgs">
+                  <a href="JavaScript:void(0)">
+                    <img alt="toys" src="{% static 'assets/img/food-shop-3.png' %}">
+                  </a>
+
+                </li>
+            </ul>
+            <div class="pd-main-img">
+              <img id="NZoomImg" alt="toys" src="{% static 'assets/img/food-shop-1.png' %}" >
+              
+            </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="product-info p-60">
+          <div class="d-flex align-items-center">
+            <div class="start d-flex align-items-center">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <span>12 Reviews</span>
+          </div>
+          <h3>Healthy Dog Food Roaster Chicken</h3>
+          <form class="variations_form">
+            <div class="stock">
+            <span class="price">
+              <del>
+              <span class="woocommerce-Price-amount">
+              <bdi>
+                <span class="woocommerce-Price-currencySymbol">$</span>42.00</bdi>
+              </span>
+              </del>
+              <ins>
+                  <span class="woocommerce-Price-amount amount">
+                    <bdi>
+                    <span class="woocommerce-Price-currencySymbol">$</span>32.00</bdi>
+                  </span>
+                </ins> 
+            </span>
+            <h6><span>In stock</span></h6>
+            </div>
+            <div class="quantity">
+                  <h6>Quantity</h6>
+              <input type="number" class="input-text" step="1" min="1" name="quantity" value="1">
+                </div>
+                <div class="add-to-cart">
+                          <a href="#" class="button">Add to Cart</a>
+                          <a href="#" class="heart-wishlist">
+                            <i class="fa-regular fa-heart"></i>
+                          </a>
+                        </div>
+            <ul class="product_meta">
+                <li><span class="theme-bg-clr">Category:</span>
+                  <ul class="pd-cat">
+                    <li><a href="#">Pet</a>,
+                      <a href="#">Pet Food </a></li>          
+                  </ul>
+                </li>
+                <li><span class="theme-bg-clr">Tags:</span>
+                  <ul class="pd-tag">
+                     <li>
+                       <a href="#">Pet</a>
+                       ,<a href="#">Pet care</a>
+                     </li>    
+                  </ul>
+                </li>
+              </ul>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

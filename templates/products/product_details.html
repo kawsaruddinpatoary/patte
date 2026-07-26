@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block title %} Product Details {% endblock %} 
+
+{% block content %} 
+
+{% include 'banner.html' with heading="Product Details" %}
+{% include 'products/details.html' %}
+{% include 'products/info.html' %}
+{% include 'products/suggestions.html' %}
+
+{% endblock %}
+
