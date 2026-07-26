@@ -31,3 +31,6 @@ def signIn(request):
 def services(request):
     return render(request, 'services/services.html')
 
+def serviceDetails(request):
+    return render(request, 'services/service_details.html')
+
