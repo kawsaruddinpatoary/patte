@@ -15,3 +15,6 @@ def teamDetails(request):
 
 def workingProcess(request):
     return render(request, 'workingProcess/working_process.html')
+
+def history(request):
+    return render(request, 'history/history.html')

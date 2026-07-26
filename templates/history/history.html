@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block Title %} History {% endblock %} 
+
+{% block content %}
+
+{% include 'banner.html' with heading="History" %}
+{% include 'history/story.html' %}
+{% include 'history/details.html' %}
+{% include 'history/features.html' %}
+
+
+
+
+<div class="clients-logo gap no-top">
+    <div class="container">
+        <div class="logodata owl-carousel owl-theme">
+          <div class="partner item">
+            <img alt="clients-logo" src="{% static 'assets/img/clients-1.png' %}">
+          </div>
+          <div class="partner item">
+            <img alt="clients-logo" src="{% static 'assets/img/clients-2.png' %}">
+          </div>
+          <div class="partner item">
+            <img alt="clients-logo" src="{% static 'assets/img/clients-3.png' %}">
+          </div>
+          <div class="partner item">
+            <img alt="clients-logo" src="{% static 'assets/img/clients-4.png' %}">
+          </div>
+          <div class="partner item">
+            <img alt="clients-logo" src="{% static 'assets/img/clients-5.png' %}">
+          </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
