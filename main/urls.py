@@ -10,4 +10,5 @@ urlpatterns = [
     path('history', views.history, name='history'),
     path('pricing', views.pricing, name='pricing'),
     path('gallery/', views.gallery, name='gallery'),
+    path('sign-in/', views.signIn, name='sign-in')
 ]

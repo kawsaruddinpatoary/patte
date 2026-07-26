@@ -25,3 +25,5 @@ def pricing(request):
 def gallery(request):
     return render(request, 'gallery/gallery.html')
 
+def signIn(request):
+    return render(request, 'sign_in.html')
