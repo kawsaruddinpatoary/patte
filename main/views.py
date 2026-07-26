@@ -12,3 +12,6 @@ def contact(request):
 
 def teamDetails(request):
     return render(request, 'team/team.html')
+
+def workingProcess(request):
+    return render(request, 'workingProcess/working_process.html')

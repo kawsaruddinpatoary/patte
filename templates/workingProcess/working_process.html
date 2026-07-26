@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block title %} How We Work {% endblock %}
+
+{% block content %}
+
+
+{% include 'banner.html' with heading="How we work" %}
+{% include 'workingProcess/steps.html' %}
+{% include 'workingProcess/awards.html' %}
+{% include 'workingProcess/find_branch.html' %}
+
+
+{% endblock %}
