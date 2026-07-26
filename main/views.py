@@ -27,3 +27,7 @@ def gallery(request):
 
 def signIn(request):
     return render(request, 'sign_in.html')
+
+def services(request):
+    return render(request, 'services/services.html')
+
