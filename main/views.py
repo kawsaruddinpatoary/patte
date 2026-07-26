@@ -40,5 +40,8 @@ def products(request):
 def productDetails(request):
     return render(request, 'products/product_details.html')
 
+def cart(request):
+    return render(request, 'ordering/cart.html')
+
 
 
