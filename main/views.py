@@ -34,3 +34,8 @@ def services(request):
 def serviceDetails(request):
     return render(request, 'services/service_details.html')
 
+def products(request):
+    return render(request, 'products/products.html')
+
+
+
