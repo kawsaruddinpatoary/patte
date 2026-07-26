@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block title %} Contact Us {% endblock %} 
+
+{% block content %}
+
+{% include 'banner.html' with heading="Contact Us" %}
+{% include 'contact/contact_info.html' %}
+{% include 'contact/contact_form.html' %}
+
+
+
+<!-- Awards -->
+<div class="gap">
+    <div class="container">
+        <h3 class="awards">Awards Winning Company</h3>
+        <div class="awards">
+            <img src="{% static 'assets/img/awards-1.png' %}" alt="awards">
+            <img src="{% static 'assets/img/awards-2.png' %}" alt="awards">
+            <img src="{% static 'assets/img/awards-3.png' %}" alt="awards">
+            <img src="{% static 'assets/img/awards-4.png' %}" alt="awards">
+        </div>
+    </div>
+</div>
+
+{% endblock %}
