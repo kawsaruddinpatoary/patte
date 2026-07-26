@@ -21,3 +21,7 @@ def history(request):
 
 def pricing(request):
     return render(request, 'pricing/pricing.html')
+
+def gallery(request):
+    return render(request, 'gallery/gallery.html')
+

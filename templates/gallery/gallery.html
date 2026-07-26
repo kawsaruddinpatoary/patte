@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block title %} Photo Gallery {% endblock %} 
+
+{% block content %}
+
+{% include 'banner.html' with heading="Photo Gallery" %}
+{% include 'gallery/pictures.html' %}
+{% include 'follow.html' %}
+
+
+{% endblock %}
