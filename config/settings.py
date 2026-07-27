@@ -124,3 +124,8 @@ STATICFILES_DIRS = [
 
 # The folder where Django collects files for deployment (Must be different from your source folder!)
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+MEDIA_URL = '/media/'
+
+# 2. The absolute path on your computer/server disk where files are physically saved
+MEDIA_ROOT = BASE_DIR / 'media'
