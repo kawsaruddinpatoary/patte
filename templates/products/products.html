@@ -103,11 +103,11 @@
                     <div class="healthy-product-img">
                         <img src="{{ product.images.all.first.image.url }}" alt="product image">                        
                         <ul class="star">
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
+                          {% for i in "12345" %}
+                            {% if forloop.counter <= product.rating %}
+                              <li><i class="fa-solid fa-star"></i></li>
+                            {% endif %}
+                          {% endfor %}
                         </ul>
                         <div class="add-to-cart">
                           <a href="#">Add to Cart</a>
