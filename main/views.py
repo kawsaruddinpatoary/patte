@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Product
 
 # Create your views here.
 def index(request):
@@ -35,7 +36,8 @@ def serviceDetails(request):
     return render(request, 'services/service_details.html')
 
 def products(request):
-    return render(request, 'products/products.html')
+    products = Product.objects.all()
+    return render(request, 'products/products.html', {'products': products})
 
 def productDetails(request):
     return render(request, 'products/product_details.html')
