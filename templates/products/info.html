@@ -3,9 +3,9 @@
 <section class="gap">
   <div class="container">
     <div class="information">
-      <h3>Related Products</h3>
+      <h3>Product Description</h3>
       <div class="boder-bar"></div>
-      <p>Lorem ipsum dolor sit amet,consectetur adipiscing elit do eiusmod tempor incididunt ut labore et.Lorem ipsumsit amet, consectetur adipiscing elit, sed do eiusmod teincididunt ut la amet,consectetur adipiscing elibore et. Lorem ipsum dolor sit amet,consectetur adipiscing elit do eiusmod tempor incididunt ut labore et.Lorem ipsumsit amet, consectetur adipiscing elit, sed do eiusmod teincididunt ut la amet,consectetur adipiscing elibore et. loLorem ipsum dolor sit amet,consectetur adipiscing elit do eiusmod tempor incididunt ut labore et.Lorem ipsumsit amet, consectetur adipiscing elit, sed do eiusmod teincididunt ut la amet,consectetur adipiscing elibore et. Lorem ipsum dolor sit amet,consectetur adipiscing elit do eiusmod tempor incididunt ut labore et.Lorem ipsumsit amet, consectetur adipiscing elit, </p>
+      <p>{{ product.description }}</p>
     </div>
       <div class="row mt-5">
         <div class="col-lg-7">
@@ -57,10 +57,10 @@
       <h3>Nutritional Info</h3>
       <div class="boder-bar"></div>
       <ul class="specification">
-        <li><h6>Vitamin E</h6>100 IU/kg</li>
-        <li><h6>Glucosamine</h6>350 mg/kg*</li>
-        <li><h6>Crude Protein</h6>21.0%</li>
-        <li><h6>Moisture </h6>12.0%</li>
+        <li><h6>Vitamin E</h6>{{product.vitamin_e}} IU/kg</li>
+        <li><h6>Glucosamine</h6>{{product.glucosamine}} mg/kg*</li>
+        <li><h6>Crude Protein</h6>{{product.crude_protein}}%</li>
+        <li><h6>Moisture </h6>{{product.moisture}}%</li>
       </ul>
     </div>
     <div class="information mt-70">
@@ -76,25 +76,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="noBorder">Up to 10 lb</td>
-          <td class="noBorder">1 to 2</td>
-          <td class="noBorder">3.5 oz of PEDIGREE® Pouch</td>
-        </tr>
-        <tr>
-          <td class="noBorder">10 to 25</td>
-          <td class="noBorder">2 to 3</td>
-          <td class="noBorder">3.5 oz of PEDIGREE</td>
-        </tr>
-        <tr>
-          <td class="noBorder">50 to 75</td>
-          <td class="noBorder">1 to 2</td>
-          <td class="noBorder"></td>
-        </tr>
-        <tr>
-          <td class="noBorder">75 to 150</td>
-          <td class="noBorder">2 to 3</td>
-        </tr>
+        {% for guideline in product.feeding_guidelines.all %}
+          <tr>
+            <td class="noBorder">Up to {{guideline.weight}} lb</td>
+            <td class="noBorder">{{guideline.cups}}</td>
+            <td class="noBorder">{{guideline.mix_with}}</td>
+          </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>
@@ -106,63 +94,20 @@
           <div class="boder-bar"></div>
         </div>
         <ul class="reviews">
-          <li>
-            <div>
-            <img alt="img" src="{% static 'assets/img/reviews-1.jpg' %}">
-              <div class="star">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
+          {% for review in product.reviews.all %}
+            <li>
+              <div>
+                <img alt="img" src="{% static 'assets/img/reviews-1.jpg' %}">
               </div>
-            </div>
-            <div>
-              <div class="d-flex align-items-center">
-                <h4>Smith Johnson</h4>
-                <span>January 7, 2023</span>
+              <div>
+                <div class="d-flex align-items-center">
+                  <h4>{{review.user}}</h4>
+                  <span>{{review.posted_at}}</span>
+                </div>
+                <p>{{review.body}}</p>
               </div>
-              <p>Integer sollicitudin ligula non enim sodales non lacinia commodo tempor mod licitudin. Integer sollicitudin ligula non enim sodales non lacinia.</p>
-            </div>
-          </li>
-          <li>
-            <div>
-            <img alt="img" src="{% static 'assets/img/reviews-2.jpg' %}">
-              <div class="star">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-            </div>
-            <div>
-              <div class="d-flex align-items-center">
-                <h4>Wilimes Marko</h4>
-                <span>January 7, 2023</span>
-              </div>
-              <p>Integer sollicitudin ligula non enim sodales non lacinia commodo tempor mod licitudin. Integer sollicitudin ligula non enim sodales non lacinia.</p>
-            </div>
-          </li>
-          <li>
-            <div>
-            <img alt="img" src="{% static 'assets/img/reviews-3.jpg' %}">
-              <div class="star">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-            </div>
-            <div>
-              <div class="d-flex align-items-center">
-                <h4>Thomas Nomia</h4>
-                <span>January 7, 2023</span>
-              </div>
-              <p>Integer sollicitudin ligula non enim sodales non lacinia commodo tempor mod licitudin. Integer sollicitudin ligula non enim sodales non lacinia.</p>
-            </div>
-          </li>
+            </li>
+          {% endfor %}
         </ul>
         <ul class="pagination">
                   <li class="prev"><a href="#"><i class='fa-solid fa-arrow-left'></i></a></li>

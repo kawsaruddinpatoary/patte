@@ -117,7 +117,7 @@
                         </div>
                     </div>
                     <span>{{product.categories.all.first.category}}</span>
-                    <a href="#">{{product.title}}</a>
+                    <a href="{% url 'product-details' product.id %}">{{product.title}}</a>
                     <h6>${{product.price}}</h6>
                 </div>
             </div>

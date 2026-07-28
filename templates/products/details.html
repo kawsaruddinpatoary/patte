@@ -6,27 +6,16 @@
       <div class="col-lg-7 p-0">
         <div class="pd-gallery">
           <ul class="pd-imgs">
+            {% for img in product.images.all %}
                 <li class="li-pd-imgs nav-active">
                     <a href="JavaScript:void(0)">
-                      <img alt="toys" src="{% static 'assets/img/food-shop-1.png' %}">
+                      <img alt="toys" src="{{ img.image.url }}">
                     </a>
-
                 </li>
-                <li class="li-pd-imgs">
-                  <a href="JavaScript:void(0)">
-                    <img alt="toys" src="{% static 'assets/img/food-shop-2.png' %}">
-                  </a>
-                </li>
-                <li class="li-pd-imgs">
-                  <a href="JavaScript:void(0)">
-                    <img alt="toys" src="{% static 'assets/img/food-shop-3.png' %}">
-                  </a>
-
-                </li>
+              {% endfor %}
             </ul>
             <div class="pd-main-img">
-              <img id="NZoomImg" alt="toys" src="{% static 'assets/img/food-shop-1.png' %}" >
-              
+              <img id="NZoomImg" alt="toys" src="{{ product.images.all.first.image.url }}" >              
             </div>
         </div>
       </div>
@@ -42,24 +31,30 @@
             </div>
             <span>12 Reviews</span>
           </div>
-          <h3>Healthy Dog Food Roaster Chicken</h3>
+          <h3>{{ product.title }}</h3>
           <form class="variations_form">
             <div class="stock">
             <span class="price">
               <del>
               <span class="woocommerce-Price-amount">
               <bdi>
-                <span class="woocommerce-Price-currencySymbol">$</span>42.00</bdi>
+                <span class="woocommerce-Price-currencySymbol">$</span> {{product.price}} </bdi>
               </span>
               </del>
               <ins>
                   <span class="woocommerce-Price-amount amount">
                     <bdi>
-                    <span class="woocommerce-Price-currencySymbol">$</span>32.00</bdi>
+                    <span class="woocommerce-Price-currencySymbol">$</span> {{product.price}} </bdi>
                   </span>
                 </ins> 
             </span>
-            <h6><span>In stock</span></h6>
+            <h6>
+              {% if product.stock >= 1 %}
+                <span>In stock</span>
+              {% else %}
+                <span>Out of stock</span>
+              {% endif %}
+            </h6>
             </div>
             <div class="quantity">
                   <h6>Quantity</h6>
@@ -74,16 +69,24 @@
             <ul class="product_meta">
                 <li><span class="theme-bg-clr">Category:</span>
                   <ul class="pd-cat">
-                    <li><a href="#">Pet</a>,
-                      <a href="#">Pet Food </a></li>          
+                    <li>
+                    {% for category in product.categories.all %}
+                      <a href="#">{{ category.category }}</a>{% if not forrloop.last %},{% endif%}
+                      {% empty %}
+                        None.
+                    {% endfor %}
+                    </li>          
                   </ul>
                 </li>
                 <li><span class="theme-bg-clr">Tags:</span>
                   <ul class="pd-tag">
                      <li>
-                       <a href="#">Pet</a>
-                       ,<a href="#">Pet care</a>
-                     </li>    
+                    {% for tag in product.tags.all %}
+                      <a href="#">{{ tag.tag }}</a>{% if not forrloop.last %},{% endif%}
+                      {% empty %}
+                        None.
+                    {% endfor %}
+                    </li>   
                   </ul>
                 </li>
               </ul>

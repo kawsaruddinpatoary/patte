@@ -27,4 +27,3 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('title', 'price')
     inlines = [CategoryInline, TagInline, ImagesInline, FeedingGuidelineInline, ReviewInline]
     
-

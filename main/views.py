@@ -39,8 +39,27 @@ def products(request):
     products = Product.objects.all()
     return render(request, 'products/products.html', {'products': products})
 
-def productDetails(request):
-    return render(request, 'products/product_details.html')
+def productDetails(request, id):
+    product = Product.objects.get(id=id)
+    product_cat_names = {cat.category.lower() for cat in product.categories.all()}
+    
+    suggestions = []
+    
+    # Exclude the current product upfront
+    all_products = Product.objects.exclude(id=product.id)
+    
+    for item in all_products:
+        # Get item's category names in lowercase
+        item_cat_names = {cat.category.lower() for cat in item.categories.all()}
+        
+        # Check if there is any string overlap
+        if product_cat_names & item_cat_names:
+            suggestions.append(item)
+            
+        if len(suggestions) == 4:
+            break
+        
+    return render(request, 'products/product_details.html', {'product': product, 'suggestions': suggestions})
 
 def cart(request):
     return render(request, 'ordering/cart.html')
