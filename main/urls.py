@@ -19,4 +19,5 @@ urlpatterns = [
     path('checkout/', views.checkout, name='checkout'),
     path('blogs/', views.blogs, name='blogs'),
     path('blog-details', views.blogDetails, name='blog-details'),
+    path('categories/<slug:slug>', views.categoryDetails, name='category-products'),
 ]

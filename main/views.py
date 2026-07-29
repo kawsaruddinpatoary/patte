@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from django.db.models import Count
+from django.db.models import Count, Min
 from django.db.models.functions import Lower
 from .models import Product, Category
 
@@ -40,12 +40,13 @@ def serviceDetails(request):
     return render(request, 'services/service_details.html')
 
 def products(request):
-    product_list = Product.objects.all().order_by('-id')
+    product_list = Product.objects.all().order_by('id')
     
     categories = Category.objects.annotate(
         cat_name = Lower('category')
     ).values('cat_name').annotate(
-        product_count = Count('product', distinct=True)
+        product_count = Count('product', distinct=True),
+        slug = Min('slug')
     ).order_by('cat_name')
     
     # 1. Show 8 products per page (change this number as needed)
@@ -97,5 +98,32 @@ def blogs(request):
 def blogDetails(request):
     return render(request, 'blog/blog_details.html')
 
+
+def categoryDetails(request, slug):
+    product_list = Product.objects.filter(
+        categories__slug__iexact = slug
+    ).distinct()
+    
+    categories = Category.objects.annotate(
+        cat_name = Lower('category')
+    ).values('cat_name').annotate(
+        product_count = Count('product', distinct=True),
+        slug = Min('slug')
+    ).order_by('cat_name')
+    
+    # 1. Show 8 products per page (change this number as needed)
+    paginator = Paginator(product_list, 8) 
+    
+    # 2. Get current page number from URL query string (e.g. ?page=2)
+    page_number = request.GET.get('page')
+    
+    # 3. Get products for that specific page
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'page_obj': page_obj,  # This replaces your old 'products' variable
+        'categories':categories
+    }
+    return render(request, 'products/categoryProducts.html', context)
 
 

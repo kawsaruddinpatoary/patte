@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 # Create your models here.
 class Product(models.Model):
@@ -40,6 +41,15 @@ class FeedingGuideline(models.Model):
 class Category(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True, related_name='categories')
     category = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=50, blank=True)  # New Slug Field
+
+    def save(self, *args, **kwargs):
+        if not self.slug and self.category:
+            self.slug = slugify(self.category)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.category
     
 class Tag(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True, related_name='tags')
