@@ -15,18 +15,11 @@
             <h3>Category</h3>
             <div class="boder-bar"></div>
             <ul class="category">
+            {% for cat in categories %}
               <li>
-                <a href="#">Cat Supplies<span>32</span></a>
+                <a href="#">{{ cat.cat_name }}<span>{{ cat.product_count }}</span></a>
               </li>
-              <li>
-                <a href="#">Dog Supplies<span>12</span></a>
-              </li>
-              <li>
-                <a href="#">Animal Feed<span>14</span></a>
-              </li>
-              <li class="end">
-                <a href="#">Accessories<span>32</span></a>
-              </li>
+            {% endfor %}
             </ul>
         </div>
         <div class="sidebar">

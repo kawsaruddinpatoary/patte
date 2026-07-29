@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
-from .models import Product
+from django.db.models import Count
+from django.db.models.functions import Lower
+from .models import Product, Category
 
 # Create your views here.
 def index(request):
@@ -40,6 +42,12 @@ def serviceDetails(request):
 def products(request):
     product_list = Product.objects.all().order_by('-id')
     
+    categories = Category.objects.annotate(
+        cat_name = Lower('category')
+    ).values('cat_name').annotate(
+        product_count = Count('product', distinct=True)
+    ).order_by('cat_name')
+    
     # 1. Show 8 products per page (change this number as needed)
     paginator = Paginator(product_list, 8) 
     
@@ -51,6 +59,7 @@ def products(request):
     
     context = {
         'page_obj': page_obj,  # This replaces your old 'products' variable
+        'categories':categories
     }
     return render(request, 'products/products.html', context)
 
