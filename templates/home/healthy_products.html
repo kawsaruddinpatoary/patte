@@ -8,16 +8,17 @@
             <h2>Healthy Products</h2>
         </div>
         <div class="row">
+        {% for product in featured_products %}
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="healthy-product">
                     <div class="healthy-product-img">
-                        <img src="{% static 'assets/img/food-1.png' %}" alt="food">
+                        <img src="{{ product.images.all.first.image.url }}" alt="food">
                         <ul class="star">
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
+                          {% for i in "12345" %}
+                            {% if forloop.counter <= product.rating %}
+                              <li><i class="fa-solid fa-star"></i></li>
+                            {% endif %}
+                          {% endfor %}
                         </ul>
                         <div class="add-to-cart">
                           <a href="#">Add to Cart</a>
@@ -26,106 +27,12 @@
                           </a>
                         </div>
                     </div>
-                    <span>Animal Feed</span>
-                    <a href="our-products.html">Procan Adult Dog Food</a>
-                    <h6>$32.00</h6>
+                    <span>{{ product.categories.all.first.category }}</span>
+                    <a href="{% url 'product-details' product.id %}">{{ product.title }}</a>
+                    <h6>${{ product.price }}</h6>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="healthy-product">
-                    <div class="healthy-product-img">
-                        <img src="{% static 'assets/img/food-2.png' %}" alt="food">
-                        <ul class="star">
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                        </ul>
-                        <div class="add-to-cart">
-                          <a href="#">Add to Cart</a>
-                          <a href="#" class="heart-wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                          </a>
-                        </div>
-                        <h4>-24%</h4>
-                    </div>
-                    <span>Animal Feed</span>
-                    <a href="our-products.html">Best Organic Feeds</a>
-                    <h6><del>$32.00</del>$22.00</h6>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="healthy-product">
-                    <div class="healthy-product-img">
-                        <img src="{% static 'assets/img/food-3.png' %}" alt="food">
-                        <ul class="star">
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                        </ul>
-                        <div class="add-to-cart">
-                          <a href="#">Add to Cart</a>
-                          <a href="#" class="heart-wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                          </a>
-                        </div>
-                    </div>
-                    <span>Animal Feed</span>
-                    <a href="our-products.html">Green Papaya Fruit</a>
-                    <h6>$32.00</h6>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="healthy-product">
-                    <div class="healthy-product-img">
-                        <img src="{% static 'assets/img/food-4.png' %}" alt="food">
-                        <ul class="star">
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                        </ul>
-                        <div class="add-to-cart">
-                          <a href="#">Add to Cart</a>
-                          <a href="#" class="heart-wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                          </a>
-                        </div>
-                        <h4>-24%</h4>
-                    </div>
-                    <span>Animal Feed</span>
-                    <a href="our-products.html">KMR Pwdr 12oz</a>
-                    <h6><del>$32.00</del>$22.00</h6>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="healthy-product mb-lg-0">
-                    <div class="healthy-product-img">
-                        <img src="{% static 'assets/img/food-5.png' %}" alt="food">
-                        <ul class="star">
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                        </ul>
-                        <div class="add-to-cart">
-                          <a href="#">Add to Cart</a>
-                          <a href="#" class="heart-wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                          </a>
-                        </div>
-                        <h4>-24%</h4>
-                    </div>
-                    <span>Animal Feed</span>
-                    <a href="our-products.html">Cattle Feed</a>
-                    <h6><del>$32.00</del>$22.00</h6>
-                </div>
-            </div>
+        {% endfor %}
             <div class="col-lg-9">
                 <div class="deal-of-the-week">
                     <div class="healthy-product-img">
