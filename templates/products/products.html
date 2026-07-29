@@ -97,7 +97,7 @@
           </div>
         </div>
         <div class="row">
-          {% for product in products %}
+          {% for product in page_obj %}
             <div class="col-md-4 col-sm-6">
                 <div class="healthy-product">
                     <div class="healthy-product-img">
@@ -124,15 +124,53 @@
           {% empty %}
             <h6> No Products Found. </h6>
           {% endfor %}
+          
+          <div>
+          <ul class="pagination m-auto">
 
-            <ul class="pagination m-auto">
-                  <li class="prev"><a href="#"><i class='fa-solid fa-arrow-left'></i></a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">......</a></li>
-                  <li><a href="#">18</a></li>
-                  <li class="next"><a href="#"><i class='fa-solid fa-arrow-right'></i></a></li>
-               </ul>
+          <!-- Previous Page Arrow -->
+          {% if page_obj.has_previous %}
+              <li class="prev">
+                  <a href="?page={{ page_obj.previous_page_number }}">
+                      <i class="fa-solid fa-arrow-left"></i>
+                  </a>
+              </li>
+          {% else %}
+              <li class="prev disabled">
+                  <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
+              </li>
+          {% endif %}
+
+          <!-- Dynamic Page Numbers -->
+          {% for page_num in page_obj.paginator.page_range %}
+              {% if page_obj.number == page_num %}
+                  <!-- Active/Current Page -->
+                  <li class="active">
+                      <a href="?page={{ page_num }}">{{ page_num }}</a>
+                  </li>
+              {% else %}
+                  <!-- Other Pages -->
+                  <li>
+                      <a href="?page={{ page_num }}">{{ page_num }}</a>
+                  </li>
+              {% endif %}
+          {% endfor %}
+
+          <!-- Next Page Arrow -->
+          {% if page_obj.has_next %}
+              <li class="next">
+                  <a href="?page={{ page_obj.next_page_number }}">
+                      <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+              </li>
+          {% else %}
+              <li class="next disabled">
+                  <a href="#"><i class="fa-solid fa-arrow-right"></i></a>
+              </li>
+          {% endif %}
+
+          </ul>
+        </div>
         </div>
       </div>
     </div>

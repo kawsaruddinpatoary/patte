@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator
 from .models import Product
 
 # Create your views here.
@@ -36,8 +37,21 @@ def serviceDetails(request):
     return render(request, 'services/service_details.html')
 
 def products(request):
-    products = Product.objects.all()
-    return render(request, 'products/products.html', {'products': products})
+    product_list = Product.objects.all().order_by('-id')
+    
+    # 1. Show 8 products per page (change this number as needed)
+    paginator = Paginator(product_list, 8) 
+    
+    # 2. Get current page number from URL query string (e.g. ?page=2)
+    page_number = request.GET.get('page')
+    
+    # 3. Get products for that specific page
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'page_obj': page_obj,  # This replaces your old 'products' variable
+    }
+    return render(request, 'products/products.html', context)
 
 def productDetails(request, id):
     product = Product.objects.get(id=id)
