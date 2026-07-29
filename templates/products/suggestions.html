@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <span>{{suggestion.categories.all.first.category}}</span>
-                    <a href="#">{{suggestion.title}}</a>
+                    <a href="{% url 'product-details' product.id %}">{{suggestion.title}}</a>
                     <h6>${{suggestion.price}}</h6>
                 </div>
             </div>

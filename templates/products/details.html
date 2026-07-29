@@ -23,13 +23,12 @@
         <div class="product-info p-60">
           <div class="d-flex align-items-center">
             <div class="start d-flex align-items-center">
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
+              {% for i in "12345" %}
+                {% if forloop.counter <= product.rating %}
+                  <i class="fa-solid fa-star"></i>
+                {% endif %}
+              {% endfor %}
             </div>
-            <span>12 Reviews</span>
           </div>
           <h3>{{ product.title }}</h3>
           <form class="variations_form">
@@ -49,7 +48,7 @@
                 </ins> 
             </span>
             <h6>
-              {% if product.stock >= 1 %}
+              {% if product.stocks >= 1 %}
                 <span>In stock</span>
               {% else %}
                 <span>Out of stock</span>
@@ -71,7 +70,7 @@
                   <ul class="pd-cat">
                     <li>
                     {% for category in product.categories.all %}
-                      <a href="#">{{ category.category }}</a>{% if not forrloop.last %},{% endif%}
+                      <a href="#">{{ category.category }}</a>{% if not forloop.last %},{% endif%}
                       {% empty %}
                         None.
                     {% endfor %}
@@ -82,7 +81,7 @@
                   <ul class="pd-tag">
                      <li>
                     {% for tag in product.tags.all %}
-                      <a href="#">{{ tag.tag }}</a>{% if not forrloop.last %},{% endif%}
+                      <a href="#">{{ tag.tag }}</a>{% if not forloop.last %},{% endif%}
                       {% empty %}
                         None.
                     {% endfor %}
