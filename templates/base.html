@@ -90,39 +90,8 @@
                     <li class="navbar-dropdown">
                       <a href="{% url 'about' %}">About</a>
                     </li>
-                    <li class="navbar-dropdown menu-item-children">
-                      <a href="javascript:void(0)"><i>
-                      </i>services</a>
-                      <div class="dropdown">
-                        <a href="{% url 'services' %}">services</a>
-                        <a href="{% url 'service-details' %}">service details</a>
-                      </div>
-                    </li>
-                    <li class="navbar-dropdown menu-item-children">
-                      <a href="javascript:void(0)">pages</a>
-                      <div class="dropdown">
-                        <a href="{% url 'team-details' %}">team details</a>
-                        <a href="{% url 'working-process' %}">how we work</a>
-                        <a href="{% url 'history' %}">history</a>
-                        <a href="{% url 'pricing' %}">pricing packages</a>
-                        <a href="{% url 'gallery' %}">photo gallery</a>
-                        <a href="{% url 'sign-in' %}">Sign In</a>
-                      </div>
-                    </li>
-                    <li class="navbar-dropdown menu-item-children">
-                      <a href="javascript:void(0)">Shop</a>
-                      <div class="dropdown">
-                        <a href="{% url 'products' %}">our products</a>
-                        <a href="{% url 'cart' %}">shop cart</a>
-                        <a href="{% url 'checkout' %}">cart checkout</a>
-                      </div>
-                    </li>
-                    <li class="navbar-dropdown menu-item-children">
-                      <a href="javascript:void(0)">News</a>
-                      <div class="dropdown">
-                        <a href="{% url 'blogs' %}">our blog</a>
-                        <a href="{% url 'blog-details' %}">blog details</a>
-                      </div>
+                    <li class="navbar-dropdown">
+                      <a href="{% url 'products' %}">Shop</a>
                     </li>
                     <li class="navbar-dropdown">
                       <a href="{% url 'contact' %}">Contact</a>
@@ -164,60 +133,18 @@
 
           <li><a href="{% url 'home' %}">home</a></li>
           <li><a href="{% url 'about' %}">about</a></li>
-
-          
-          <li class="menu-item-has-children"><a href="JavaScript:void(0)">Services</a>
-
-          <ul class="sub-menu">
-
-            <li><a href="{% url 'services' %}">services</a></li>
-            <li><a href="{% url 'service-details' %}">service details</a></li>
-
-          </ul>
-
-          </li>
-          <li class="menu-item-has-children"><a href="JavaScript:void(0)">pages</a>
-              <ul class="sub-menu">
-                <li><a href="{% url 'team-details' %}">team details</a></li>
-                <li><a href="{% url 'working-process' %}">how we work</a></li>
-                <li><a href="{% url 'history' %}">history</a></li>
-                <li><a href="{% url 'pricing' %}">pricing packages</a></li>
-                <li><a href="{% url 'gallery' %}">photo gallery</a></li>
-                <li><a href="{% url 'sign-in' %}">sign in</a></li>
-              </ul>
-
-          </li>
-          <li class="menu-item-has-children"><a href="JavaScript:void(0)">shop</a>
-
-              <ul class="sub-menu">
-                <li><a href="{% url 'products' %}">our products</a></li>
-                <li><a href="{% url 'cart' %}">shop cart</a></li>
-                <li><a href="{% url 'checkout' %}">cart checkout</a></li>
-              
-              </ul>
-
-          </li>
-          <li class="menu-item-has-children"><a href="JavaScript:void(0)">News</a>
-
-              <ul class="sub-menu">
-                <li><a href="{% url 'blogs' %}">our blog</a></li>
-               <li><a href="{% url 'blog-details' %}">blog details</a></li>
-              
-              </ul>
-
-          </li>
-
+          <li><a href="{% url 'products' %}">Shop</a></li>          
           <li><a href="{% url 'contact' %}">contacts</a></li>
 
-          </ul>
+        </ul>
 
-            <ul class="social-icon">
-                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-            </ul>
+        <ul class="social-icon">
+            <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+            <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+        </ul>
 
-          <a href="JavaScript:void(0)" id="res-cross"></a>
+        <a href="JavaScript:void(0)" id="res-cross"></a>
   </div>
 </header>
 
