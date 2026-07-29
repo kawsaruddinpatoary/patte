@@ -121,6 +121,8 @@
                     <h6>${{product.price}}</h6>
                 </div>
             </div>
+          {% empty %}
+            <h6> No Products Found. </h6>
           {% endfor %}
 
             <ul class="pagination m-auto">
