@@ -1,8 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.db.models import Count, Min
 from django.db.models.functions import Lower
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
+from django.contrib import messages
 from .models import Product, Category
+from .forms import RegisterForm, LoginForm
 
 # Create your views here.
 def index(request):
@@ -127,3 +131,83 @@ def categoryDetails(request, slug):
     return render(request, 'products/categoryProducts.html', context)
 
 
+def auth(request):      
+    loginform = LoginForm()
+    registerform = RegisterForm()
+    
+    if request.method == "POST":
+        action_type = request.POST.get('action_type')
+        if action_type == "register":
+            registerform = RegisterForm(request.POST)
+            if registerform.is_valid():
+                full_name = registerform.cleaned_data["full_name"]
+                identifier = registerform.cleaned_data["username_or_email"]
+                password = registerform.cleaned_data["password"]
+                
+                if '@' in identifier:
+                    email = identifier
+                    username = identifier.split('@')[0]
+                else:
+                    email = ''
+                    username = identifier
+                
+                full_name_str = str(registerform.cleaned_data['full_name']).strip()
+
+                # 2. Split by spaces into a list of word strings
+                name_words = full_name_str.split()  # .split() with no arguments splits by any whitespace!
+
+                if name_words:
+                    first_name = name_words[0]  # First word
+                    last_name = " ".join(name_words[1:]) if len(name_words) > 1 else ''  # Rest of the words joined together
+                else:
+                    first_name = ''
+                    last_name = ''
+                
+                user = User.objects.create_user(
+                    username=username,
+                    email=email,
+                    password=password,
+                    first_name=first_name,
+                    last_name=last_name
+                )
+                
+                login(request, user)
+                messages.success(request, "Account created successfully!")
+                
+                return redirect('home')
+            else:
+                print(registerform.errors)
+        
+        if action_type=='login':
+            loginform = LoginForm(request.POST)
+            if loginform.is_valid():
+                identifier = loginform.cleaned_data["username_or_email"]
+                password = loginform.cleaned_data["password"]
+                remember_me = loginform.cleaned_data["remember_me"]
+            
+                user_obj = User.objects.filter(email__iexact=identifier).first()
+                username_to_auth = user_obj.username if user_obj else identifier
+                
+                user = authenticate(request, username=username_to_auth, password=password)
+                
+                if user is not None:
+                    login(request, user)
+                
+                    if not remember_me:
+                        request.session.set_expiry(0)
+                    else:
+                        request.session.set_expiry(1209600) # 2 weeks
+                    
+                    messages.success(request, f"Welcome Back {user.first_name or user.username}!")
+                    return redirect('home')
+                else:
+                    messages.error(request, "Invalid username/Password!")
+    
+    context = {
+        'login_form': loginform,
+        'register_form': registerform,
+    }
+    return render(request, 'sign_in.html', context)
+                
+                
+                
