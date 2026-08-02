@@ -212,6 +212,12 @@ def auth(request):
     return render(request, 'sign_in.html', context)
 
 @login_required(login_url='sign-in')
+def userLogout(request):
+    logout(request)
+    messages.info(request, "You have been logged out!")
+    return redirect(request.META.get("HTTP_REFERER", 'home'))
+
+@login_required(login_url='sign-in')
 def addToCart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     cart_item, created = CartItem.objects.get_or_create(user=request.user, product=product)
