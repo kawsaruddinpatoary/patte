@@ -176,7 +176,7 @@ def auth(request):
                 login(request, user)
                 messages.success(request, "Account created successfully!")
                 
-                return redirect('home')
+                return redirect("products")
             else:
                 print(registerform.errors)
         
@@ -201,7 +201,7 @@ def auth(request):
                         request.session.set_expiry(1209600) # 2 weeks
                     
                     messages.success(request, f"Welcome Back {user.first_name or user.username}!")
-                    return redirect('home')
+                    return redirect("products")
                 else:
                     messages.error(request, "Invalid username/Password!")
     
