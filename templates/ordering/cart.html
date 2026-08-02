@@ -24,67 +24,35 @@
                         </tr>
                     </thead>
                     <tbody>
+                    {% for item in cart_items %}
                         <tr>
                             <td class="product-remove">
                                 <a href="#"><i class="fa-solid fa-x"></i></a>
                             </td>
                             <td class="product-name">
-                                <img alt="img" src="{% static 'assets/img/food-1.png' %}">
+                                <img alt="img" src="{{ item.product.images.all.first.image.url }}">
                                 <div>
                                     <span>Sku: 11F4278</span>
-                                    <a href="#">Men Black T-Shirt</a>
+                                    <a href="#">{{item.product.title}}</a>
                                 </div>
                             </td>
                             <td class="product-price">
-                                <span class="woocommerce-Price-amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>110.00</bdi>
-                                <del>$1,245.69</del>
+                                <span class="woocommerce-Price-amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>{{item.product.price}}</bdi>
+                                <del>${{item.product.price}}</del>
                                 </span>          
                             </td>
-                            <td class="product-quantity">
-                                <input type="number" class="input-text" min="0" >
+                            <td class="product-quantity product-price">
+                                <span class="woocommerce-Price-amount"><bdi><span class="woocommerce-Price-currencySymbol"></span>{{item.quantity}}</bdi></span>
                             </td>
                             <td class="product-subtotal">
-                                <span class="woocommerce-Price-amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>220.00</bdi></span>
+                                <span class="woocommerce-Price-amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>{{item.get_total_price}}</bdi></span>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="product-remove">
-                                <a href="#"><i class="fa-solid fa-x"></i></a>
-                            </td>
-                            <td class="product-name">
-                                <img alt="img" src="{% static 'assets/img/food-2.png' %}">
-                                <div>
-                                    <span>Sku: 11F4278</span>
-                                    <a href="#">Men Black T-Shirt</a>
-                                </div>
-                            </td>
-                            <td class="product-price">
-                                <span class="woocommerce-Price-amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>110.00</bdi>
-                                <del>$1,245.69</del>
-                                </span>          
-                            </td>
-                            <td class="product-quantity">
-                                <input type="number" class="input-text" min="0" >
-                            </td>
-                            <td class="product-subtotal">
-                                <span class="woocommerce-Price-amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>220.00</bdi></span>
-                            </td>
-                        </tr>
+                    {% endfor %}
                     </tbody>
               </table>
             </div>
                 <div class="row mt-lg-5">
-                    <div class="col-lg-5">
-                        <div class="coupon-area">
-                            <h3>Discount</h3>
-                            <p>Enter a coupin code below to apply it</p>
-                            <div class="coupon">
-                                <input type="text" name="coupon_code" class="input-text" placeholder="Coupon code">
-                                <button type="submit" class="button" name="apply_coupon">Apply coupon
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-lg-7">
                         <div class="cart_totals">
                             <h4>Payment Total</h4>
@@ -95,7 +63,7 @@
                                         <td>
                                             <span class="woocommerce-Price-amount">
                                             <bdi>
-                                                <span class="woocommerce-Price-currencySymbol">$</span>250.00
+                                                <span class="woocommerce-Price-currencySymbol">$</span>{{cart_total}}
                                             </bdi>
                                             </span>
                                         </td>
@@ -113,7 +81,7 @@
                                         <td>
                                             <span class="woocommerce-Price-amount">
                                             <bdi>
-                                                <span>$</span>250.00
+                                                <span>$</span>{{cart_total}}
                                             </bdi>
                                             </span>
                                         </td>
