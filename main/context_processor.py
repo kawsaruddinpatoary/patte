@@ -16,7 +16,7 @@ def user_data(request):
         context["cart_items"] = cart_items
         context["favourites"] = favourites
         context["cart_count"] = sum(item.quantity for item in cart_items)
-        context["favourite_count"] = sum(item.quantity for item in favourites)
+        context["favourite_count"] = len(favourites)
         context["cart_total"] = sum(item.get_total_price() for item in cart_items)
     
     
