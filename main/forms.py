@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class RegisterForm(forms.Form):
     full_name = forms.CharField(
         max_length=150,
-        widget=forms.TextInput(attrs={'placeholder':"Complete Name"})
+        widget=forms.TextInput(attrs={'placeholder':"Full Name"})
     )
     username_or_email = forms.CharField(
         max_length=150,
