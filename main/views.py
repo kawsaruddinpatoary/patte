@@ -211,7 +211,7 @@ def auth(request):
     }
     return render(request, 'sign_in.html', context)
 
-@login_required(login_url='auth')
+@login_required(login_url='sign-in')
 def addToCart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     cart_item, created = CartItem.objects.get_or_create(user=request.user, product=product)
@@ -228,7 +228,7 @@ def addToCart(request, product_id):
                 
    
    
-@login_required(login_url='auth')
+@login_required(login_url='sign-in')
 def toggleFavourite(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     wishlist_item, created = WishlistItem.objects.get_or_create(user=request.user, product=product)
@@ -242,7 +242,7 @@ def toggleFavourite(request, product_id):
     return redirect(request.META.get('HTTP_REFERER', 'home'))       
 
 
-@login_required(login_url='auth_page')
+@login_required(login_url='sign-in')
 def cart_detail(request):
     cart_items = CartItem.objects.filter(user=request.user)
     total_price = sum(item.get_total_price() for item in cart_items)
