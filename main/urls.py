@@ -15,9 +15,11 @@ urlpatterns = [
     path('service-details/', views.serviceDetails, name='service-details'),
     path('products/', views.products, name='products'),
     path('products/<int:id>', views.productDetails, name='product-details'),
-    path('cart/', views.cart, name='cart'),
+    path('cart/', views.cart_detail, name='cart'),
     path('checkout/', views.checkout, name='checkout'),
     path('blogs/', views.blogs, name='blogs'),
     path('blog-details', views.blogDetails, name='blog-details'),
     path('categories/<slug:slug>', views.categoryDetails, name='category-products'),
+    path('cart/add/<int:product_id>', views.addToCart, name='add-to-cart'),
+    path('favourites/add/<int:product_id>', views.toggleFavourite, name='toggle-favourite')
 ]

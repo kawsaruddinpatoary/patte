@@ -1,12 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Count, Min
 from django.db.models.functions import Lower
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Product, Category
+from .models import Product, Category, CartItem, WishlistItem
 from .forms import RegisterForm, LoginForm
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
@@ -208,6 +210,45 @@ def auth(request):
         'register_form': registerform,
     }
     return render(request, 'sign_in.html', context)
+
+@login_required(login_url='auth')
+def addToCart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    cart_item, created = CartItem.objects.get_or_create(user=request.user, product=product)
+    
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+        messages.success(request, f"Quantity for the product is increased successfully!")
+    else:
+        messages.success(request, "Added this product to your cart successfully!")
+    
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
                 
                 
-                
+   
+   
+@login_required(login_url='auth')
+def toggleFavourite(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    wishlist_item, created = WishlistItem.objects.get_or_create(user=request.user, product=product)
+    
+    if not created:
+        wishlist_item.delete()
+        messages.info(request, f"Item removed from your favourites!")
+    else:
+        messages.success(request, "Added this product to your favourites successfully!")
+    
+    return redirect(request.META.get('HTTP_REFERER', 'home'))       
+
+
+@login_required(login_url='auth_page')
+def cart_detail(request):
+    cart_items = CartItem.objects.filter(user=request.user)
+    total_price = sum(item.get_total_price() for item in cart_items)
+
+    context = {
+        'cart_items': cart_items,
+        'total_price': total_price,
+    }
+    return render(request, 'ordering/cart.html', context)      

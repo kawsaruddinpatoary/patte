@@ -111,8 +111,8 @@
                           {% endfor %}
                         </ul>
                         <div class="add-to-cart">
-                          <a href="#">Add to Cart</a>
-                          <a href="#" class="heart-wishlist">
+                          <a href="{% url 'add-to-cart' product.id %}">Add to Cart</a>
+                          <a href="{% url 'toggle-favourite' product.id %}" class="heart-wishlist">
                             <i class="fa-regular fa-heart"></i>
                           </a>
                         </div>
