@@ -27,7 +27,7 @@
                     {% for item in cart_items %}
                         <tr>
                             <td class="product-remove">
-                                <a href="#"><i class="fa-solid fa-x"></i></a>
+                                <a href="{% url 'remove-from-cart' item.product.id %}"><i class="fa-solid fa-x"></i></a>
                             </td>
                             <td class="product-name">
                                 <img alt="img" src="{{ item.product.images.all.first.image.url }}">

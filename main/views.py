@@ -243,4 +243,13 @@ def cart_detail(request):
         'cart_items': cart_items,
         'total_price': total_price,
     }
-    return render(request, 'ordering/cart.html', context)      
+    return render(request, 'ordering/cart.html', context)   
+
+
+@login_required(login_url='sign-in')
+def removeFromCart(request, product_id):
+    cart_item = get_object_or_404(CartItem, id=product_id, user=request.user)
+    cart_item.delete()
+    messages.success(request, "The item was deleted successfully!")
+    
+    return redirect(request.META.get('HTTP_REFERER', 'cart'))
