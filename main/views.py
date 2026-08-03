@@ -5,7 +5,7 @@ from django.db.models.functions import Lower
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Product, Category, CartItem, WishlistItem
+from .models import Product, Category, CartItem
 from .forms import RegisterForm, LoginForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -231,21 +231,7 @@ def addToCart(request, product_id):
     
     return redirect(request.META.get('HTTP_REFERER', 'home'))
                 
-                
-   
-   
-@login_required(login_url='sign-in')
-def toggleFavourite(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
-    wishlist_item, created = WishlistItem.objects.get_or_create(user=request.user, product=product)
-    
-    if not created:
-        wishlist_item.delete()
-        messages.info(request, f"Item removed from your favourites!")
-    else:
-        messages.success(request, "Added this product to your favourites successfully!")
-    
-    return redirect(request.META.get('HTTP_REFERER', 'home'))       
+      
 
 
 @login_required(login_url='sign-in')

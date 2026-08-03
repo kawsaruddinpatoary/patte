@@ -22,5 +22,4 @@ urlpatterns = [
     path('blog-details', views.blogDetails, name='blog-details'),
     path('categories/<slug:slug>', views.categoryDetails, name='category-products'),
     path('cart/add/<int:product_id>', views.addToCart, name='add-to-cart'),
-    path('favourites/add/<int:product_id>', views.toggleFavourite, name='toggle-favourite')
 ]

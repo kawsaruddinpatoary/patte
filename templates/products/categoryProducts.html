@@ -112,9 +112,6 @@
                         </ul>
                         <div class="add-to-cart">
                           <a href="{% url 'add-to-cart' product.id %}">Add to Cart</a>
-                          <a href="{% url 'toggle-favourite' product.id %}" class="heart-wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                          </a>
                         </div>
                     </div>
                     <span>{{product.categories.all.first.category}}</span>

@@ -60,11 +60,8 @@
               <input type="number" class="input-text" step="1" min="1" name="quantity" value="1">
                 </div>
                 <div class="add-to-cart">
-                          <a href="{% url 'add-to-cart' product.id %}" class="button">Add to Cart</a>
-                          <a href="{% url 'toggle-favourite' product.id %}" class="heart-wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                          </a>
-                        </div>
+                  <a href="{% url 'add-to-cart' product.id %}" class="button">Add to Cart</a>
+                </div>
             <ul class="product_meta">
                 <li><span class="theme-bg-clr">Category:</span>
                   <ul class="pd-cat">
