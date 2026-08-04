@@ -248,7 +248,7 @@ def cart_detail(request):
 
 @login_required(login_url='sign-in')
 def removeFromCart(request, product_id):
-    cart_item = get_object_or_404(CartItem, id=product_id, user=request.user)
+    cart_item = get_object_or_404(CartItem, product_id=product_id, user=request.user)
     cart_item.delete()
     messages.success(request, "The item was deleted successfully!")
     
