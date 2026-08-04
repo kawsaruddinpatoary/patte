@@ -55,10 +55,10 @@
               {% endif %}
             </h6>
             </div>
-            <div class="quantity">
+            {% comment %} <div class="quantity">
                   <h6>Quantity</h6>
               <input type="number" class="input-text" step="1" min="1" name="quantity" value="1">
-                </div>
+                </div> {% endcomment %}
                 <div class="add-to-cart">
                   <a href="{% url 'add-to-cart' product.id %}" class="button">Add to Cart</a>
                 </div>
