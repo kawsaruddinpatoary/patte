@@ -73,3 +73,49 @@ class CartItem(models.Model):
     def __string__(self):
         return f"{self.user.username} - {self.product.title} {self.quantity}"
     
+
+class ShippingAddress(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="shipping_address")
+    first_name = models.CharField(max_length=100, blank=True, null=True)
+    last_name = models.CharField(max_length=100, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    country = models.CharField(max_length=100, default="Bangladesh")
+    city = models.CharField(max_length=100, blank=True, null=True)
+    division = models.CharField(max_length=100, blank=True, null=True)
+    post_code = models.CharField(max_length=20, blank=True, null=True)
+    phone = models.CharField(max_length=15, blank=True, null=True)
+    address = models.CharField(max_length=500, blank=True, null=True)
+    
+    def __string__(self):
+        return f"Shipping details for {self.user.username}"
+    
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()  
+    phone = models.CharField(max_length=15)
+    address = models.TextField()
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_method = models.CharField(max_length=50, default="Cash On Delivery")
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __string__(self):
+        return f"Order #{self.id} by {self.user.username}"
+    
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    price = models.DecimalField(max_digits=20, decimal_places=2)
+    quantity = models.PositiveIntegerField(default=1)
+    
+    def get_cost(self):
+        return self.price * self.quantity
+    
+    def __string__(self):
+        return f"{self.quantity} x {self.product.title if self.product else 'Deleted Product'}. "
+    
+      
+    

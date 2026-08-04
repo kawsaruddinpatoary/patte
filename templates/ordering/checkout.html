@@ -9,69 +9,35 @@
 
 <section class="gap"> 
     <div class="container">
-        <form class="checkout-meta donate-page">
+        <form class="checkout-meta donate-page" method="POST" action="{% url 'checkout' %}">
+            {% csrf_token %}
             <div class="row">
                 <div class="col-lg-8">
                     <h3>Billing details</h3>
                         <div class="col-lg-12">
-                            <input type="text" class="input-text " name="billing_name" placeholder="Complete Name">
-                            <input type="email" class="input-text " name="billing_email" placeholder="Email address">
-                            <input type="text" class="input-text " name="billing_company"  placeholder="Company name">
+                            <input type="text" class="input-text " name="billing_first_name" placeholder="First Name"  value="{{ address_info.first_name|default:user.first_name}}">
+                            <input type="text" class="input-text " name="billing_last_name" placeholder="Last Name"  value="{{ address_info.last_name|default:user.last_name }}">
+                            <input type="email" class="input-text " name="billing_email" placeholder="Email address" value="{{ address_info.email|default:user.email }}">
                             <select name="billing_country" class="nice-select Advice country_to_state">
                                 <option>Country</option>
-                                <option>Select Topic 1</option>
-                                <option>Select Topic 2</option>
-                                <option>Select Topic 3</option>
-                                <option>Select Topic 4</option>
+                                <option value="Bangladesh" {% if address_info.country == 'Bangladesh' %}selected{% endif %}>Bangladesh</option>
                             </select>
                             <div class="row">
                             <div class="col-lg-6">
-                                <select name="billing_country" class="nice-select Advice city">
-                                    <option>City</option>
-                                    <option>Select Topic 1</option>
-                                    <option>Select Topic 2</option>
-                                    <option>Select Topic 3</option>
-                                    <option>Select Topic 4</option>
-                                </select>
+                                <input type="text" class="input-text " name="city" placeholder="City" value="{{ address_info.city|default:'' }}" required>
                             </div>
                             <div class="col-lg-6">
-                                <select name="billing_country" class="nice-select Advice state province">
-                                    <option>State / Province</option>
-                                    <option>Select Topic 1</option>
-                                    <option>Select Topic 2</option>
-                                    <option>Select Topic 3</option>
-                                    <option>Select Topic 4</option>
-                                </select>
+                               <input type="text" class="input-text " name="division" placeholder="Division" value="{{ address_info.division|default:'' }}" required>
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" name="Postal_Code" placeholder="Postal Code">
+                                <input type="text" name="Postal_Code" placeholder="Postal Code" value="{{ address_info.post_code|default:'' }}" required>
                             </div>
                             <div class="col-lg-6">
-                                <input type="tel" class="input-text " name="billing_phone"  placeholder="Phone">
+                                <input type="tel" class="input-text " name="billing_phone"  placeholder="Phone" value="{{ address_info.phone|default:'' }}" required>
                             </div>
                             </div>
-                            <input type="text" name="Address" placeholder="Address">
-                            <div class="ship-address">
-                                <div class="d-flex">
-                                <input type="radio" id="Create" name="Create" value="Create">
-                                <label for="Create">
-                                    Create an account for later use
-                                </label>
-                                </div>
-                                <div class="d-flex">
-                                <input type="radio" id="ShipAddress" name="Create" value="ShipAddress">
-                                <label for="ShipAddress">
-                                        Ship to same Address
-                                </label>
-                                </div>
-                            </div>
+                            <input type="text" name="Address" placeholder="Address" value="{{ address_info.address|default:'' }}" required>
                         </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="woocommerce-additional-fields">
-                        <h3>Order Note</h3>
-                        <textarea name="order_comments" class="input-text " placeholder="Order Note"></textarea>
-                    </div>
                 </div>
             </div>
             <div class="row mt-lg-5">
@@ -85,7 +51,7 @@
                                         <td>
                                             <span class="woocommerce-Price-amount">
                                             <bdi>
-                                                <span class="woocommerce-Price-currencySymbol">$</span>358.00
+                                                <span class="woocommerce-Price-currencySymbol">$</span>{{cart_totals|default:0.00}}
                                             </bdi>
                                             </span>
                                         </td>
@@ -103,7 +69,7 @@
                                         <td>
                                             <span class="woocommerce-Price-amount">
                                             <bdi>
-                                                <span>$</span>358.00
+                                                <span>$</span>{{cart_totals | default:0.00}}
                                             </bdi>
                                             </span>
                                         </td>
@@ -117,21 +83,9 @@
                         <h3>Payment Method</h3>
                         <ul>
                             <li>
-                                <input type="radio" id="Bank_Payment" name="Bank_Payment" value="Bank_Payment">
+                                <input type="radio" id="Cash_On_Delivery" name="Cash_On_Delivery" value="Cash On Delivery" checked>
                                 <label for="Bank_Payment">
-                                        Bank Payment
-                                </label>
-                            </li>
-                            <li>
-                                <input type="radio" id="Check_Payment" name="Bank_Payment" value="Check_Payment">
-                                <label for="Check_Payment">
-                                        Check Payment
-                                </label>
-                            </li>
-                            <li>
-                                <input type="radio" id="PayPal" name="Bank_Payment" value="Check_Payment">
-                                <label for="PayPal">
-                                        PayPal
+                                        Cash On Delivery
                                 </label>
                             </li>
                         </ul>

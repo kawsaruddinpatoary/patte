@@ -5,7 +5,7 @@ from django.db.models.functions import Lower
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Product, Category, CartItem
+from .models import Product, Category, CartItem, ShippingAddress, Order, OrderItem
 from .forms import RegisterForm, LoginForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -95,8 +95,6 @@ def productDetails(request, id):
 def cart(request):
     return render(request, 'ordering/cart.html')
 
-def checkout(request):
-    return render(request, 'ordering/checkout.html')
 
 def blogs(request):
     return render(request, 'blog/blogs.html')
@@ -253,3 +251,58 @@ def removeFromCart(request, product_id):
     messages.success(request, "The item was deleted successfully!")
     
     return redirect(request.META.get('HTTP_REFERER', 'cart'))
+
+@login_required(login_url='sign-in')
+def checkout(request):
+    user = request.user
+    address_info, _ = ShippingAddress.objects.get_or_create(user=user)
+    cart_items = CartItem.objects.filter(user=user)
+    cart_total = sum(item.get_total_price() for item in cart_items) if cart_items else 0
+    
+    if request.method == "POST":
+        if not cart_items:
+            messages.error(request, "Your cart is empty!")
+            return redirect('cart')
+        
+        order = Order.objects.create(
+            user = user,
+            first_name = request.POST.get("billing_first_name"),
+            last_name = request.POST.get("billing_last_name"),
+            email = request.POST.get("billing_email"),
+            phone = request.POST.get("billing_phone"),
+            address=f"{request.POST.get('Address')}, {request.POST.get('Postal_Code')}, {request.POST.get('city')} - {request.POST.get('division')}, {request.POST.get('billing_country')}",
+            total_price = cart_total,
+            payment_method = request.POST.get('payment_method', 'Cash On Delivery')
+        )
+        
+        for item in cart_items:
+            OrderItem.objects.create(
+                order=order,
+                product = item.product,
+                price = item.product.price,
+                quantity = item.quantity,
+            )
+        
+        
+        address_info.first_name = request.POST.get('billing_first_name')
+        address_info.last_name = request.POST.get('billing_last_name')
+        address_info.email = request.POST.get('billing_email')
+        address_info.phone = request.POST.get('billing_phone')
+        address_info.country = request.POST.get('billing_country')
+        address_info.city = request.POST.get('city')
+        address_info.division = request.POST.get('division')
+        address_info.post_code = request.POST.get('Postal_Code')
+        address_info.address = request.POST.get('Address')
+        address_info.save()
+        
+        cart_items.delete()
+        
+        messages.success(request, f"Order #{order.id} placed successfully!")
+        return redirect('cart')
+    
+    context = {
+        'address_info': address_info,
+        'cart_totals': cart_total,
+    }
+    return render(request, 'ordering/checkout.html', context)
+    
