@@ -32,7 +32,7 @@
                             <td class="product-name">
                                 <img alt="img" src="{{ item.product.images.all.first.image.url }}">
                                 <div>
-                                    <a href="#">{{item.product.title}}</a>
+                                    <a href="{% url 'product-details' item.product.id %}">{{item.product.title}}</a>
                                 </div>
                             </td>
                             <td class="product-price">
