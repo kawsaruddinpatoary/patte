@@ -105,6 +105,12 @@ class ShippingAddress(models.Model):
     
 
 class Order(models.Model):
+    class OrderStatus(models.TextChoices):
+            PROCESSING = 'PROCESSING', 'Processing'
+            SHIPPED = 'SHIPPED', 'Shipped'
+            DELIVERED = 'DELIVERED', 'Delivered'
+            CANCELLED = 'CANCELLED', 'Cancelled'
+            
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -113,7 +119,14 @@ class Order(models.Model):
     address = models.TextField()
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     payment_method = models.CharField(max_length=50, default="Cash On Delivery")
+    status = models.CharField(
+        max_length=20,
+        choices=OrderStatus.choices,
+        default = OrderStatus.PROCESSING,
+    )
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    
     
     def __string__(self):
         return f"Order #{self.id} by {self.user.username}"
