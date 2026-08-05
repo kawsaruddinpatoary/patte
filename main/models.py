@@ -2,6 +2,17 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=50, blank=True, null=True, unique=True)
+    description = models.TextField(null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "Categories"
+
+    def __str__(self):
+        return self.name
+
 # Create your models here.
 class Product(models.Model):
     title = models.CharField(max_length=200)
@@ -13,6 +24,11 @@ class Product(models.Model):
     glucosamine = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     crude_protein = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     moisture = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    categories = models.ManyToManyField(
+        Category,
+        blank=True,
+        related_name='products'
+    )
     
     def __str__(self):
         return self.title
@@ -39,18 +55,6 @@ class FeedingGuideline(models.Model):
     cups = models.IntegerField()
     mix_with = models.CharField(max_length=100)
     
-class Category(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True, related_name='categories')
-    category = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=50, blank=True)  # New Slug Field
-
-    def save(self, *args, **kwargs):
-        if not self.slug and self.category:
-            self.slug = slugify(self.category)
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.category
     
 class Tag(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True, related_name='tags')

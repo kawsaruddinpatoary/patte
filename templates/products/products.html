@@ -44,7 +44,7 @@
                           <a href="{% url 'add-to-cart' product.id %}">Add to Cart</a>
                         </div>
                     </div>
-                    <span>{{product.categories.all.first.category}}</span>
+                    <span>{{product.categories.all.first.name}}</span>
                     <a href="{% url 'product-details' product.id %}">{{product.title}}</a>
                     <h6>${{product.price}}</h6>
                 </div>

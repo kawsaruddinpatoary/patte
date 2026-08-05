@@ -49,9 +49,9 @@ def products(request):
     product_list = Product.objects.all().order_by('id')
     
     categories = Category.objects.annotate(
-        cat_name = Lower('category')
+        cat_name = Lower('name')
     ).values('cat_name').annotate(
-        product_count = Count('product', distinct=True),
+        product_count = Count('products', distinct=True),
         slug = Min('slug')
     ).order_by('cat_name')
     
@@ -72,7 +72,7 @@ def products(request):
 
 def productDetails(request, id):
     product = Product.objects.get(id=id)
-    product_cat_names = {cat.category.lower() for cat in product.categories.all()}
+    product_cat_names = {cat.name.lower() for cat in product.categories.all()}
     
     suggestions = []
     
@@ -81,7 +81,7 @@ def productDetails(request, id):
     
     for item in all_products:
         # Get item's category names in lowercase
-        item_cat_names = {cat.category.lower() for cat in item.categories.all()}
+        item_cat_names = {cat.name.lower() for cat in item.categories.all()}
         
         # Check if there is any string overlap
         if product_cat_names & item_cat_names:
@@ -109,9 +109,9 @@ def categoryDetails(request, slug):
     ).distinct()
     
     categories = Category.objects.annotate(
-        cat_name = Lower('category')
+        cat_name = Lower('name')
     ).values('cat_name').annotate(
-        product_count = Count('product', distinct=True),
+        product_count = Count('products', distinct=True),
         slug = Min('slug')
     ).order_by('cat_name')
     
