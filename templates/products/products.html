@@ -17,7 +17,7 @@
             <ul class="category">
             {% for cat in categories %}
               <li>
-                <a href="{% url 'category-products' cat.slug %}">{{ cat.cat_name }}<span>{{ cat.product_count }}</span></a>
+                <a href="{% url 'category-products' cat.slug %}">{{ cat.name }}<span>{{ cat.product_count }}</span></a>
               </li>
             {% endfor %}
             </ul>

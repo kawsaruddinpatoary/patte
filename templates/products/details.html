@@ -66,8 +66,8 @@
                 <li><span class="theme-bg-clr">Category:</span>
                   <ul class="pd-cat">
                     <li>
-                    {% for category in product.categories.all %}
-                      <a href="#">{{ category.category }}</a>{% if not forloop.last %},{% endif%}
+                    {% for cat in product.categories.all %}
+                      <a href="{% url 'category-products' cat.slug %}">{{ cat.name }}</a>{% if not forloop.last %},{% endif%}
                       {% empty %}
                         None.
                     {% endfor %}

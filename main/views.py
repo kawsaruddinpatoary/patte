@@ -49,11 +49,8 @@ def products(request):
     product_list = Product.objects.all().order_by('id')
     
     categories = Category.objects.annotate(
-        cat_name = Lower('name')
-    ).values('cat_name').annotate(
-        product_count = Count('products', distinct=True),
-        slug = Min('slug')
-    ).order_by('cat_name')
+        product_count=Count('products', distinct=True)
+    ).order_by('name')
     
     # 1. Show 8 products per page (change this number as needed)
     paginator = Paginator(product_list, 8) 
@@ -104,16 +101,12 @@ def blogDetails(request):
 
 
 def categoryDetails(request, slug):
-    product_list = Product.objects.filter(
-        categories__slug__iexact = slug
-    ).distinct()
+    category = get_object_or_404(Category, slug__iexact=slug)
+    product_list = category.products.all().order_by('id')
     
     categories = Category.objects.annotate(
-        cat_name = Lower('name')
-    ).values('cat_name').annotate(
-        product_count = Count('products', distinct=True),
-        slug = Min('slug')
-    ).order_by('cat_name')
+        product_count=Count('products', distinct=True)
+    ).order_by('name')
     
     # 1. Show 8 products per page (change this number as needed)
     paginator = Paginator(product_list, 8) 
@@ -125,6 +118,7 @@ def categoryDetails(request, slug):
     page_obj = paginator.get_page(page_number)
     
     context = {
+        'category': category,
         'page_obj': page_obj,  # This replaces your old 'products' variable
         'categories':categories
     }

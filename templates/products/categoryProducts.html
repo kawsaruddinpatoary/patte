@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% load static %} 
 
-{% block title %} Products of {{ request.resolver_match.kwargs.slug | title }}  {% endblock %} 
+{% block title %} Products of {{ category.name | title }}  {% endblock %} 
 
 {% block content %} 
 
-{% include 'banner.html' with heading="Our Products" %}
+{% include 'banner.html' with heading="Products in "|add:category.name|add:" category" %}
 
 <section class="gap products-section">
   <div class="container">
@@ -19,11 +19,11 @@
                 <li>
                 {% if cat.slug %}
                     <a href="{% url 'category-products' cat.slug %}">
-                        {{ cat.cat_name }} <span>{{ cat.product_count }}</span>
+                        {{ cat.name }} <span>{{ cat.product_count }}</span>
                     </a>
                 {% else %}
                     <a href="#">
-                        {{ cat.cat_name }} <span>{{ cat.product_count }}</span>
+                        {{ cat.name }} <span>{{ cat.product_count }}</span>
                     </a>
                 {% endif %}
                 </li>
