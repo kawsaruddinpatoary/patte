@@ -20,22 +20,22 @@ class ImagesInline(admin.TabularInline):
     model = ProductImage
     extra = 1
     
-
-
-class TagInline(admin.TabularInline):
-    model = Tag 
-    extra = 1
     
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name']
     prepopulated_fields = {'slug': ('name',)}
     
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    prepopulated_fields = {'slug': ('name',)}
+    
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('title', 'price')
-    inlines = [TagInline, ImagesInline, FeedingGuidelineInline, ReviewInline]
-    filter_horizontal = ('categories',)
+    inlines = [ImagesInline, FeedingGuidelineInline, ReviewInline]
+    filter_horizontal = ('categories','tags')
     
     
 

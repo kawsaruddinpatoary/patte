@@ -3,13 +3,21 @@ from django.utils.text import slugify
 from django.contrib.auth.models import User
 
 class Category(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=50, blank=True, null=True, unique=True)
     description = models.TextField(null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "Categories"
 
+    def __str__(self):
+        return self.name
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=50, null=True,blank=True, unique=True)
+    description = models.TextField(null=True, blank=True)
+    
     def __str__(self):
         return self.name
 
@@ -29,6 +37,11 @@ class Product(models.Model):
         blank=True,
         related_name='products'
     )
+    tags = models.ManyToManyField(
+            Tag,
+            blank=True,
+            related_name='products'
+        )
     
     def __str__(self):
         return self.title
@@ -56,9 +69,6 @@ class FeedingGuideline(models.Model):
     mix_with = models.CharField(max_length=100)
     
     
-class Tag(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True, related_name='tags')
-    tag = models.CharField(max_length=50)
     
     
 class CartItem(models.Model):
